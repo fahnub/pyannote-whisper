@@ -1,0 +1,5 @@
+pyannote.audio
+python-dotenv
+pydub
+yt_dlp
+flask

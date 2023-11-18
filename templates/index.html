@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <title>PapyrusTech.ai</title>
+  <script>
+    // This function is called when the form is submitted
+    function showProcessing() {
+      // Change the text of the output div to "Processing..."
+      var output = document.getElementById('output');
+      output.innerText = 'Processing...';
+      output.className = 'processing-text'; // Add the class to the output element
+       // Ideally, you would disable the submit button here to prevent multiple submissions
+       document.getElementById('submit-button').disabled = true;
+    }
+  </script>
+  <style>
+    body {
+      margin: 0; /* Removes default margin */
+      padding: 0; /* Removes default padding */
+    }
+    .header-wrapper {
+      position: relative; /* Establishes a positioning context for absolute positioning */
+      margin-left: 25%;
+    }
+    .logo { /* This class name should match the one used in the image tag */
+      position: absolute; /* Positions the logo absolutely within the header-wrapper */
+      left: calc(-10% - 100px); /* Aligns the logo to the left edge of the header-wrapper */
+      top: 0; /* Aligns the logo to the top edge of the header-wrapper */
+      height: auto; /* Adjust automatically as needed */
+      width: 200px; /* Adjust width specifically */
+    }
+    .content, .footer-container { /* Keep the footer aligned with the content */
+      margin-left: 25%; /* Aligns the content with the header */
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      width: 100%; /* Ensures the footer text block is full width */
+      background-color: #f8f9fa;
+    }
+    .processing-text {
+      color: blue;       /* Set the text color to blue */
+      font-style: italic; /* Make the text italic */
+    }
+    /* Add more styles here as needed */
+  </style>
+</head>
+<body>
+  <div class="header-wrapper">
+    <img src="{{ url_for('static', filename='images/papyrus_logo_v1.png') }}" alt="Logo" class="logo">
+    <div class="header-container">
+      <h1>PapyrusTech.ai</h1>
+      <h3>Find the information you need:</h3>
+    </div>
+  </div>
+  <div class="content">
+    <!-- Add an onsubmit event handler to call showProcessing function -->
+    <form action="/transcribe" method="post" enctype="multipart/form-data" onsubmit="showProcessing()">
+        <!-- URL Input -->
+        <label for="url">Youtube URL:</label>
+        <input type="text" id="url" name="url" /><br /><br />
+
+        <!-- Non-Youtube URL Input -->
+    <label for="non_youtube_url">Non-Youtube Audio/Video URL:</label>
+    <input
+        type="text"
+        id="non_youtube_url"
+        name="non_youtube_url"
+    /><br /><br />
+
+    <!-- File Upload -->
+    <label for="file">Upload an audio or file:</label>
+    <input type="file" id="file" name="file" /><br /><br />
+      
+    <!-- Advanced Options -->
+    <h2>Advanced Options</h2>
+
+    <!-- Translate Toggle -->
+    <label for="translate"
+        >Translate -- Select if input file requires translation of foreign
+        language into English:</label
+    >
+    <input
+        type="checkbox"
+        id="translate"
+        name="translate"
+        value="true"
+    /><br /><br />
+
+    <!-- Number of Speakers -->
+    <label for="numSpeakers"
+        >Define Speaker number -- Select if # of speakers is known and you wish
+        to define</label
+    >
+    <input type="number" id="numSpeakers" name="numSpeakers" /><br /><br />
+
+    <!-- Submit Button -->
+    <input type="submit" value="Submit" id="submit-button" />
+    </form>
+
+    <!-- Output -->
+    <h2>Output:</h2>
+    <div id="output"></div>
+  </div>
+  <footer>
+    <p>info@papyrustech.ai</p>
+  </footer>
+</body>
+</html>
